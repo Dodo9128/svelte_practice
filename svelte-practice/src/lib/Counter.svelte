@@ -1,31 +1,25 @@
 <script>
-  let count1 = 0;
-  let count2 = 0;
-  $: string1 = `You have clicked ${count1} times`;
-  $: string2 = `You have clicked ${count2} times`;
+  export let initialCount = 0;
+  export let maxCount = undefined;
 
-  function setCount2(x) {
-    count2 = x;
-  }
+  /**
+   * $$props 와 $$restProps는 필요할 때만 사용해야 한다
+   * -> 컴파일러 성능 이슈를 일으킬 수 있음
+   * 
+   * $$props: 현재 컴포넌트에서 받은, 사용하는 props들
+   * $$restProps: 현재 컴포넌트에서 받지 않았거나, 받았지만 컴포넌트에서 사용하지 않는 props들
+  */
+  console.log($$props, $$restProps)
 
-  $: setCount2(count1);
-  $: string = `Count2 is ${count2}`;
+  let count = initialCount;
 
-  function increment1() {
-    count1++;
+  function increment() {
+    if(count === maxCount) return;
+    count++;
   }
 </script>
 
-<button on:click={increment1}>Clicks! {count1}</button>
-
-<h3>{string}</h3>
-
-
-<!-- 
-<h3>{string1}</h3>
-<h3>{string2}</h3> -->
-
-<!-- <h3>You have clicked {count} times</h3> -->
+<button on:click={increment}>Clicks! {count}</button>
 
 <style>
   button {
