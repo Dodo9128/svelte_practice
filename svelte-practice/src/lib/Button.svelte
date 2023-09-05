@@ -1,8 +1,13 @@
 <script>
-    // export let title = 'My Button';
+    export let size = 'small';
+    export let shadow = false;
 </script>
 
-<button><slot>FALLBACK</slot></button>
+<button
+    class:size-lg={size === 'large'}
+    class:size-sm={size === 'small'}
+    class:shadow
+        ><slot>FALLBACK</slot></button>
 
 <style lang="scss">
     button{
@@ -13,9 +18,21 @@
         font-weight: bold;
         border-radius: 5px;
         cursor: pointer;
+        &.size-sm {
+            padding: 15px 20px;
+        }
+        &.size-lg {
+            padding: 20px 20px;
+            font-size: 20px;
+        }
+        &.shadow {
+            box-shadow: 0 0 10px rgba(1, 1, 1, 0.3);
+        }
         &:hover {
-            // background-color: $whitecolor;
-            background-color: $redcolor;
+            background-image: $hovercolor
+        }
+        &:active {
+            background-image: $activecolor;
         }
     }
 </style>
